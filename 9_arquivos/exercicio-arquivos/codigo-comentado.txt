@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+int main() {
+    FILE *file;         // Declara um ponteiro de arquivo
+    char symbol;        // Variável para armazenar o símbolo lido
+    int i, j;           // Contadores
+
+    file = fopen("EGA.CPI", "rb");  // Abre o arquivo "EGA.CPI" em modo binário
+
+    if (file == NULL) {    // Verifica se a abertura do arquivo foi bem-sucedida
+        perror("Erro ao abrir o arquivo EGA.CPI");  // Exibe mensagem de erro e sai com código 1
+        return 1;
+    }
+
+    fseek(file, 48, SEEK_SET);  // Desloca o ponteiro de arquivo para a posição 48 a partir do início
+
+    for (i = 0; i < 16; i++) {  // Loop para ler 16 símbolos
+        fread(&symbol, sizeof(char), 1, file);  // Lê um símbolo do arquivo
+
+        for (j = 7; j >= 0; j--) {  // Loop para avaliar cada bit do símbolo
+            if ((symbol >> j) & 1) {
+                putchar(219);  // Imprime o símbolo 219 (bloco cheio) para bit 1
+            } else {
+                putchar(32);   // Imprime o símbolo 32 (espaço) para bit 0
+            }
+        }
+
+        putchar('\n');  // Adiciona uma quebra de linha após cada símbolo
+
+        getch();  // Pausa a execução e aguarda uma tecla ser pressionada
+    }
+
+    fclose(file);  // Fecha o arquivo
+
+    return 0;  // Retorna 0 para indicar sucesso
+}

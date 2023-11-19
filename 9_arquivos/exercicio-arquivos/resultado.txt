@@ -1,0 +1,9 @@
+Nome do aluno     Média:
+Carla                9.00
+João                 7.00
+Jose                 6.33
+Katia                7.67
+Maria                8.00
+Mario                8.33
+Marta                7.67
+Pedro                8.33
